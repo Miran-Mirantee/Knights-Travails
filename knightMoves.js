@@ -33,6 +33,34 @@ class Graph {
   }
 }
 
+// create graph
+const graph = new Graph();
+
+const createBoard = () => {
+  const arr = [];
+  for (let i = 0; i < 8; i++) {
+    const temp = [];
+    for (let j = 0; j < 8; j++) {
+      temp.push([i, j]);
+    }
+    arr.push(temp);
+  }
+  return arr;
+};
+
+// create board
+const board = createBoard();
+
+// fill all the tils into the graph
+const fillTile = (() => {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      graph.addVertex(board[i][j]);
+    }
+  }
+})();
+
+// check if path is travesable
 const checkPath = (tile) => {
   let x = tile[0];
   let y = tile[1];
@@ -43,14 +71,11 @@ const checkPath = (tile) => {
 };
 
 // create possible paths
-const createPath = (start) => {
-  const graph = new Graph();
-  graph.addVertex(start);
+const createPath = (start = board[0][0]) => {
   let x = start[0];
   let y = start[1];
   const paths = [];
   const temp = [];
-
   const path1 = [x + 2, y + 1];
   const path2 = [x + 2, y - 1];
   const path3 = [x - 2, y + 1];
@@ -62,37 +87,17 @@ const createPath = (start) => {
   temp.push(path1, path2, path3, path4, path5, path6, path7, path8);
   for (let path of temp) {
     if (checkPath(path)) {
-      paths.push(path);
+      paths.push(board[path[0]][path[1]]);
     }
   }
 
   for (let path of paths) {
-    graph.addVertex(path);
-    graph.addEdge(start, path);
+    if (!graph.adjList.get(start).includes(path)) {
+      graph.addEdge(start, path);
+      createPath(path);
+    }
   }
-  graph.printGraph();
 };
 
-// const createBoard = () => {
-//   const arr = [];
-//   for (let i = 0; i < 8; i++) {
-//     const temp = [];
-//     for (let j = 0; j < 8; j++) {
-//       temp.push([i, j]);
-//     }
-//     arr.push(temp);
-//   }
-//   return arr;
-// };
-
-createPath([0, 0]);
-
-// const board = createBoard();
-// console.log(board);
-
-// const graph = new Graph();
-// const arr = [1, 0];
-// graph.addVertex(arr);
-// const temp = graph.adjList.keys();
-// // graph.printGraph();
-// console.log(temp.next().value);
+createPath();
+graph.printGraph();
