@@ -31,45 +31,6 @@ class Graph {
       console.log(i + " -> " + conc);
     }
   }
-
-  // function to performs BFS
-  bfs(start, dest) {
-    // create a visited object
-    let visited = {};
-
-    // Create an object for queue
-    const q = [];
-
-    // add the starting node to the queue
-    visited[start] = true;
-    q.push(start);
-
-    // loop until queue is empty
-    while (q.length !== 0) {
-      // get the element from the queue
-      let getQueueElement = q.shift();
-
-      // passing the current vertex to callback function
-      console.log(getQueueElement);
-
-      // get the adjacent list for current vertex
-      let get_List = this.adjList.get(getQueueElement);
-
-      // loop through the list and add the element to the
-      // queue if it is not processed yet
-      for (let i in get_List) {
-        let neigh = get_List[i];
-
-        if (!visited[neigh]) {
-          visited[neigh] = true;
-          q.push(neigh);
-        }
-
-        if (neigh == dest) return true;
-      }
-    }
-    return false;
-  }
 }
 
 // create graph
@@ -139,6 +100,85 @@ const createPath = (start = board[0][0]) => {
 };
 createPath();
 
-graph.bfs(board[0][0], board[2][4]);
+// function to performs BFS
+const bfs = (g, start, dest, pred, dist) => {
+  // create a visited object
+  let visited = {};
 
-// graph.printGraph();
+  // Create an array for queue
+  const q = [];
+
+  for (let i of [...g.adjList.keys()]) {
+    visited[i] = false;
+    dist[i] = 99999999;
+    pred[i] = -1;
+  }
+
+  // add the starting node to the queue
+  visited[start] = true;
+  dist[start] = 0;
+  q.push(start);
+
+  // loop until queue is empty
+  while (q.length !== 0) {
+    // get the element from the queue
+    let getQueueElement = q.shift();
+
+    // get the adjacent list for current vertex
+    let get_List = g.adjList.get(getQueueElement);
+
+    // loop through the list and add the element to the
+    // queue if it is not processed yet
+    for (let i in get_List) {
+      let neigh = get_List[i];
+
+      if (!visited[neigh]) {
+        visited[neigh] = true;
+        dist[neigh] = dist[getQueueElement] + 1;
+        pred[neigh] = getQueueElement;
+        q.push(neigh);
+      }
+
+      if (neigh == dest) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
+
+const printShortestDistance = (g, start, dest) => {
+  // predecessor[i] array stores predecessor of
+  // i and distance array stores distance of i
+  // from s
+  const size = g.adjList.size;
+  let pred = new Array(size).fill(0);
+  let dist = new Array(size).fill(0);
+
+  if (bfs(g, start, dest, pred, dist) == false) {
+    console.log("Given source and destination are not connected");
+  }
+
+  // vector path stores the shortest path
+  let path = new Array();
+  let crawl = dest;
+  path.push(crawl);
+  while (pred[crawl] != -1) {
+    path.push(pred[crawl]);
+    crawl = pred[crawl];
+  }
+
+  // distance from source is in distance array
+  console.log("Shortest path length is : ", dist[dest]);
+
+  // printing path from source to destination
+  console.log("Path is::");
+
+  for (let i = path.length - 1; i >= 0; i--) console.log(path[i]);
+};
+
+printShortestDistance(graph, board[0][0], board[1][2]);
+printShortestDistance(graph, board[0][0], board[3][3]);
+printShortestDistance(graph, board[0][0], board[7][7]);
+printShortestDistance(graph, board[3][3], board[0][0]);
+printShortestDistance(graph, board[3][3], board[4][3]);
