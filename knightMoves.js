@@ -31,6 +31,45 @@ class Graph {
       console.log(i + " -> " + conc);
     }
   }
+
+  // function to performs BFS
+  bfs(start, dest) {
+    // create a visited object
+    let visited = {};
+
+    // Create an object for queue
+    const q = [];
+
+    // add the starting node to the queue
+    visited[start] = true;
+    q.push(start);
+
+    // loop until queue is empty
+    while (q.length !== 0) {
+      // get the element from the queue
+      let getQueueElement = q.shift();
+
+      // passing the current vertex to callback function
+      console.log(getQueueElement);
+
+      // get the adjacent list for current vertex
+      let get_List = this.adjList.get(getQueueElement);
+
+      // loop through the list and add the element to the
+      // queue if it is not processed yet
+      for (let i in get_List) {
+        let neigh = get_List[i];
+
+        if (!visited[neigh]) {
+          visited[neigh] = true;
+          q.push(neigh);
+        }
+
+        if (neigh == dest) return true;
+      }
+    }
+    return false;
+  }
 }
 
 // create graph
@@ -98,6 +137,8 @@ const createPath = (start = board[0][0]) => {
     }
   }
 };
-
 createPath();
-graph.printGraph();
+
+graph.bfs(board[0][0], board[2][4]);
+
+// graph.printGraph();
