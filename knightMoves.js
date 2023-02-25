@@ -147,10 +147,12 @@ const bfs = (g, start, dest, pred, dist) => {
   return false;
 };
 
-const printShortestDistance = (g, start, dest) => {
+const knightMoves = (start, dest, g = graph) => {
   // predecessor[i] array stores predecessor of
   // i and distance array stores distance of i
   // from s
+  start = board[start[0]][start[1]];
+  dest = board[dest[0]][dest[1]];
   const size = g.adjList.size;
   let pred = new Array(size).fill(0);
   let dist = new Array(size).fill(0);
@@ -172,13 +174,12 @@ const printShortestDistance = (g, start, dest) => {
   console.log("Shortest path length is : ", dist[dest]);
 
   // printing path from source to destination
-  console.log("Path is::");
+  console.log("Path is:");
 
   for (let i = path.length - 1; i >= 0; i--) console.log(path[i]);
 };
 
-printShortestDistance(graph, board[0][0], board[1][2]);
-printShortestDistance(graph, board[0][0], board[3][3]);
-printShortestDistance(graph, board[0][0], board[7][7]);
-printShortestDistance(graph, board[3][3], board[0][0]);
-printShortestDistance(graph, board[3][3], board[4][3]);
+knightMoves([0, 0], [1, 3]);
+knightMoves([0, 1], [0, 2]);
+knightMoves([3, 4], [4, 3]);
+knightMoves([3, 3], [4, 3]);
