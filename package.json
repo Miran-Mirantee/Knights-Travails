@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,13 @@
   },
   "homepage": "https://github.com/Miran-Mirantee/Knights-Travails#readme",
   "devDependencies": {
-    "prettier": "2.8.4"
+    "css-loader": "^6.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "prettier": "2.8.4",
+    "style-loader": "^3.3.1",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "webpack": "^5.75.0"
   }
 }
