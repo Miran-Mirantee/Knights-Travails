@@ -71,7 +71,7 @@ const _checkPath = (tile) => {
 };
 
 // create possible paths
-const createPath = (start = board[0][0]) => {
+const _createPath = (start = board[0][0]) => {
   let x = start[0];
   let y = start[1];
   const paths = [];
@@ -94,14 +94,14 @@ const createPath = (start = board[0][0]) => {
   for (let path of paths) {
     if (!graph.adjList.get(start).includes(path)) {
       graph.addEdge(start, path);
-      createPath(path);
+      _createPath(path);
     }
   }
 };
-createPath();
+_createPath();
 
 // function to performs BFS
-const bfs = (g, start, dest, pred, dist) => {
+const _bfs = (g, start, dest, pred, dist) => {
   // create a visited object
   let visited = {};
 
@@ -157,7 +157,7 @@ const knightMoves = (start, dest, g = graph) => {
   let pred = new Array(size).fill(0);
   let dist = new Array(size).fill(0);
 
-  if (bfs(g, start, dest, pred, dist) == false) {
+  if (_bfs(g, start, dest, pred, dist) == false) {
     console.log("Given source and destination are not connected");
   }
 
@@ -175,11 +175,8 @@ const knightMoves = (start, dest, g = graph) => {
 
   // printing path from source to destination
   console.log("Path is:");
-
+  // console.log(path);
   for (let i = path.length - 1; i >= 0; i--) console.log(path[i]);
 };
 
-knightMoves([0, 0], [1, 3]);
-knightMoves([0, 1], [0, 2]);
-knightMoves([3, 4], [4, 3]);
-knightMoves([3, 3], [4, 3]);
+export default knightMoves;
