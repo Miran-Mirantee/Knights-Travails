@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
+    index: "./src/index.js",
     knightMoves: "./src/knightMoves.js",
   },
   devtool: "inline-source-map",
