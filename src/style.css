@@ -26,6 +26,11 @@ body {
   cursor: pointer;
 }
 
+.knight {
+  background-image: url("./knight.png");
+  background-size: cover;
+}
+
 .tile.black {
   background-color: #282828;
 }

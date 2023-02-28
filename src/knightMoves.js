@@ -175,8 +175,8 @@ const knightMoves = (start, dest, g = graph) => {
 
   // printing path from source to destination
   console.log("Path is:");
-  // console.log(path);
   for (let i = path.length - 1; i >= 0; i--) console.log(path[i]);
+  return path;
 };
 
 export default knightMoves;
