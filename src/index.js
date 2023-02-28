@@ -1,8 +1,10 @@
 import knightMoves from "./knightMoves";
 import "./style.css";
 
-const start = [];
-const dest = [];
+let start = [];
+let getStartPoint = false;
+let end = [];
+let getEndPoint = false;
 
 const createBoard = () => {
   const board = document.querySelector(".board");
@@ -13,19 +15,20 @@ const createBoard = () => {
     for (let x = 0; x < 8; x++) {
       const tile = document.createElement("div");
       tile.classList.add("tile");
+      tile.setAttribute("data-tile", `[${x}, ${y}]`);
       if ((x + y) % 2 === 0) {
         tile.classList.add("black");
       }
       row.append(tile);
       tile.addEventListener("click", () => {
-        if (start.length === 0) {
-          start.push(x, y);
-          console.log(start);
-        } else {
-          dest.push(x, y);
-          console.log(dest);
-          knightMoves(start, dest);
-          // temporary implement
+        const tileArr = tile.getAttribute("data-tile");
+        if (getStartPoint) {
+          start = [...JSON.parse(tileArr)];
+          console.log(`Start: ${start}`);
+        }
+        if (getEndPoint) {
+          end = [...JSON.parse(tileArr)];
+          console.log(`End: ${end}`);
         }
       });
     }
@@ -49,6 +52,22 @@ const createBoard = () => {
   board.append(numRow, numCol);
 };
 createBoard();
+
+const startBtn = document.querySelector(".startBtn");
+const endBtn = document.querySelector(".endBtn");
+const traverseBtn = document.querySelector(".traverseBtn");
+startBtn.addEventListener("click", () => {
+  getStartPoint = true;
+  getEndPoint = false;
+});
+
+endBtn.addEventListener("click", () => {
+  getStartPoint = false;
+  getEndPoint = true;
+});
+traverseBtn.addEventListener("click", () => {
+  if (start.length !== 0 && end.length !== 0) knightMoves(start, end);
+});
 
 // knightMoves([0, 0], [1, 3]);
 // knightMoves([0, 1], [0, 2]);

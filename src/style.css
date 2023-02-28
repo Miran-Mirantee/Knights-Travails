@@ -9,6 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .board {
@@ -69,4 +70,10 @@ body {
 .num {
   display: flex;
   border: 1px solid transparent;
+}
+
+.btnPanel {
+  display: flex;
+  margin-top: 48px;
+  gap: 16px;
 }
