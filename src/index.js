@@ -5,14 +5,17 @@ const start = [];
 const dest = [];
 
 const createBoard = () => {
+  const board = document.querySelector(".board");
   for (let y = 7; y >= 0; y--) {
-    const board = document.querySelector(".board");
     const row = document.createElement("div");
     row.classList.add("row");
     board.append(row);
     for (let x = 0; x < 8; x++) {
       const tile = document.createElement("div");
       tile.classList.add("tile");
+      if ((x + y) % 2 === 0) {
+        tile.classList.add("black");
+      }
       row.append(tile);
       tile.addEventListener("click", () => {
         if (start.length === 0) {
@@ -27,6 +30,23 @@ const createBoard = () => {
       });
     }
   }
+  const numRow = document.createElement("div");
+  numRow.classList.add("numRow");
+  for (let i = 7; i >= 0; i--) {
+    const num = document.createElement("div");
+    num.classList.add("num");
+    num.textContent = i;
+    numRow.append(num);
+  }
+  const numCol = document.createElement("div");
+  numCol.classList.add("numCol");
+  for (let i = 0; i < 8; i++) {
+    const num = document.createElement("div");
+    num.classList.add("num");
+    num.textContent = i;
+    numCol.append(num);
+  }
+  board.append(numRow, numCol);
 };
 createBoard();
 
