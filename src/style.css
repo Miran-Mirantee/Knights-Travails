@@ -1,3 +1,8 @@
+:root {
+  --tile-size: 75px;
+  --knight-size: calc(var(--tile-size) - 15px);
+}
+
 html {
   height: 100%;
 }
@@ -21,18 +26,31 @@ body {
 
 .tile {
   border: 1px solid black;
-  width: 50px;
-  height: 50px;
+  width: var(--tile-size);
+  height: var(--tile-size);
   cursor: pointer;
 }
 
 .knight {
+  position: absolute;
+  height: var(--knight-size);
+  width: var(--knight-size);
   background-image: url("./knight.png");
   background-size: cover;
+  opacity: 0;
+  z-index: 2;
+  transition-duration: 1s;
+  transition-property: transform;
+  transform: translate(0px, 0px);
+  border: solid 1px greenyellow;
 }
 
 .tile.black {
   background-color: #282828;
+}
+
+.tile.path {
+  background-color: rgb(255, 87, 87);
 }
 
 .tile:hover {
@@ -63,12 +81,12 @@ body {
 }
 
 .numRow > .num {
-  height: 50px;
+  height: var(--tile-size);
   align-items: center;
 }
 
 .numCol > .num {
-  width: 50px;
+  width: var(--tile-size);
   justify-content: center;
 }
 

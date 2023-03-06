@@ -174,8 +174,8 @@ const knightMoves = (start, dest, g = graph) => {
   console.log("Shortest path length is : ", dist[dest]);
 
   // printing path from source to destination
-  console.log("Path is:");
-  for (let i = path.length - 1; i >= 0; i--) console.log(path[i]);
+  // console.log("Path is:");
+  // for (let i = path.length - 1; i >= 0; i--) console.log(path[i]);
   return path;
 };
 
