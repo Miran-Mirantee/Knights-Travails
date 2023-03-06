@@ -89,15 +89,31 @@ const knightCord = knight.getBoundingClientRect();
 const startBtn = document.querySelector(".startBtn");
 const endBtn = document.querySelector(".endBtn");
 const traverseBtn = document.querySelector(".traverseBtn");
+
 startBtn.addEventListener("click", () => {
   getStartPoint = true;
   getEndPoint = false;
+  showActiveBtn();
 });
 
 endBtn.addEventListener("click", () => {
   getStartPoint = false;
   getEndPoint = true;
+  showActiveBtn();
 });
+
+const showActiveBtn = () => {
+  if (getStartPoint) {
+    startBtn.classList.add("active");
+  } else {
+    startBtn.classList.remove("active");
+  }
+  if (getEndPoint) {
+    endBtn.classList.add("active");
+  } else {
+    endBtn.classList.remove("active");
+  }
+};
 
 traverseBtn.addEventListener("click", () => {
   // if the knight is moving then exit
