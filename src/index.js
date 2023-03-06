@@ -64,7 +64,7 @@ const sleep = (millisec) => {
   });
 };
 
-const setKnightCord = async (cords) => {
+const moveKnight = async (cords) => {
   const knight = document.querySelector(".knight");
   isMoving = true;
   knight.style.opacity = `1`;
@@ -82,7 +82,7 @@ const setKnightCord = async (cords) => {
   isMoving = false;
 };
 
-// offset the part cordination
+// getting an offset cordination
 const knight = document.querySelector(".knight");
 const knightCord = knight.getBoundingClientRect();
 
@@ -106,26 +106,31 @@ traverseBtn.addEventListener("click", () => {
       paths = [...knightMoves(start, end)].reverse();
     else return;
 
-    // clear old path
+    // clear old path and order
     const oldPaths = document.querySelectorAll(".path");
     for (let path of oldPaths) {
       path.classList.remove("path");
+      path.removeChild(path.firstChild);
     }
     const cords = [];
 
     // mark the path and get cordinate
-    for (let path of paths) {
+    for (let i in paths) {
       const tile = document.querySelector(
-        `[data-tile="${JSON.stringify(path)}"]`
+        `[data-tile="${JSON.stringify(paths[i])}"]`
       );
+      const order = document.createElement("div");
       const tileCord = tile.getBoundingClientRect();
       tile.classList.add("path");
+      order.classList.add("order");
+      order.textContent = parseInt(i) + 1;
+      tile.append(order);
       cords.push({
         x: tileCord.left - knightCord.left + 7.03,
         y: tileCord.top - knightCord.top + 7.03,
       });
     }
-    setKnightCord(cords);
+    moveKnight(cords);
   }
 });
 

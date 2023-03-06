@@ -29,6 +29,16 @@ body {
   width: var(--tile-size);
   height: var(--tile-size);
   cursor: pointer;
+  position: relative;
+}
+
+.order {
+  font-size: 20px;
+  position: absolute;
+  top: 5%;
+  left: 10%;
+  color: #00ffe9;
+  font-weight: bold;
 }
 
 .knight {
@@ -42,7 +52,7 @@ body {
   transition-duration: 1s;
   transition-property: transform;
   transform: translate(0px, 0px);
-  border: solid 1px greenyellow;
+  pointer-events: none;
 }
 
 .tile.black {
